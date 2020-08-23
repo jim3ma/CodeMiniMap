@@ -1,0 +1,83 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.4.21'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+}
+
+group 'xyz.sleipnir'
+version '1.5.2'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+sourceSets {
+    main.kotlin.srcDirs += 'src/main/java'
+    test.kotlin.srcDirs += 'src/test/java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    version '2020.2'
+    pluginName 'CodeMiniMap'
+    updateSinceUntilBuild = false
+}
+patchPluginXml {
+    changeNotes """
+        <h3>1.5.2: CMM logo updated:</h3>
+        <ul>
+            <li>[FEATURE]CMM logo updated(Tons of thanks to friends from QQ group).</li>
+        </ul>
+        <h3>1.5.1: CMM now has logo:</h3>
+        <ul>
+            <li>[FEATURE]CMM logo added(Many thanks to friends from QQ group).</li>
+        </ul>
+        <h3>1.5: bug fix & features add:</h3>
+        <ul>
+            <li>[FEATURE]Config: Show find symbols.</li>
+            <li>[FIXED]Show find symbols not work when filter In Comments/In String Literals.</li>
+        </ul>
+        <h3>1.4: features add:</h3>
+        <ul>
+            <li>[FEATURE]Now CMM can show find symbols.</li>
+        </ul>
+        <h3>1.3: features add:</h3>
+        <ul>
+            <li>[FEATURE]Soft-Wrap supported.</li>
+        </ul>
+        <h3>1.2: features add:</h3>
+        <ul>
+            <li>[FEATURE]Config: Show Current Line/Show Bookmarks/Show Selection.</li>
+        </ul>
+        <h3>1.1: bug fix:</h3>
+        <ul>
+            <li>[FIXED]Bookmark lines render error when editor content folded.</li>
+        </ul>
+        <h3>1.0: Initial release of the plugin:</h3>
+        <ul>
+            <li>Worker thread for rendering</li>
+            <li>Color rendering using intelij's tokenizer</li>
+            <li>Scrollable!</li>
+            <li>- Embedded into editor window</li>
+        </ul>
+    """
+}
+
+publishPlugin {
+    token = System.getenv("Code_Mini_Map_intellijPublishToken")
+}

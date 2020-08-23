@@ -1,0 +1,77 @@
+<idea-plugin>
+    <id>Toggle Code MiniMap</id>
+    <name>Code MiniMap</name>
+    <vendor email="sleipnirxyz+CodeMiniMap@gmail.com" url="">SleipnirXYZ</vendor>
+
+    <description><![CDATA[
+        <p>
+            Code MiniMap
+            <p>
+                Embeds a code minimap similar to the one found in Sublime/Atom into the editor pane. Works with both light and dark
+                themes using your customized colors for syntax highlighting.
+            </p>
+        </p>
+    ]]></description>
+
+    <change-notes><![CDATA[
+        <h3>1.5.2: CMM logo updated:</h3>
+        <ul>
+            <li>[FEATURE]CMM logo updated(Tons of thanks to friends from QQ group).</li>
+        </ul>
+        <h3>1.5: bug fix & features add:</h3>
+		<ul>
+			<li>[FEATURE]Config: Show find symbols.</li>
+			<li>[FIXED]Show find symbols not work when filter In Comments/In String Literals.</li>
+		</ul>
+        <h3>1.4: features add:</h3>
+		<ul>
+			<li>[FEATURE]Now CMM can show find symbols.</li>
+		</ul>
+        <h3>1.3: features add:</h3>
+		<ul>
+			<li>[FEATURE]Soft wrap model supported.</li>
+		</ul>
+        <h3>1.2: features add:</h3>
+		<ul>
+			<li>[FEATURE]Config: Show Current Line/Show Bookmarks/Show Selection.</li>
+		</ul>
+        <h3>1.1: bug fix:</h3>
+		<ul>
+			<li>[FIXED]Bookmark lines render error when editor content folded.</li>
+		</ul>
+		<h3>1.0: Initial release of the plugin:</h3>
+		<ul>
+			<li>Bookmark lines highlight.</li>
+			<li>Selection lines highlight.</li>
+			<li>Current line highlight.</li>
+		</ul>
+	]]></change-notes>
+
+    <idea-version since-build="193.0"/>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="xyz.sleipnir.codeminimap.action.ShowHideAction"
+                class="xyz.sleipnir.codeminimap.action.ShowHideAction" text="Toggle CodeMinimap"
+                description="Toggle CodeMinimap on or off">
+            <keyboard-shortcut keymap="$default" first-keystroke="control shift G"/>
+        </action>
+    </actions>
+
+    <applicationListeners>
+        <listener class="xyz.sleipnir.codeminimap.listener.ProjectInitListener" topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="xyz.sleipnir.codeminimap.config.ConfigService" />
+        <applicationConfigurable instance="xyz.sleipnir.codeminimap.config.ConfigEntry" />
+    </extensions>
+</idea-plugin>
