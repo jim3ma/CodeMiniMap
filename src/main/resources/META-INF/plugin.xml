@@ -1,7 +1,7 @@
 <idea-plugin>
-    <id>Toggle Code MiniMap</id>
+    <id>Code MiniMap</id>
     <name>Code MiniMap</name>
-    <vendor email="sleipnirxyz+CodeMiniMap@gmail.com" url="">SleipnirXYZ</vendor>
+    <vendor email="sleipnirxyz+CodeMiniMap@gmail.com" url="https://plugins.jetbrains.com/plugin/14959-code-minimap">SleipnirXYZ</vendor>
 
     <description><![CDATA[
         <p>
