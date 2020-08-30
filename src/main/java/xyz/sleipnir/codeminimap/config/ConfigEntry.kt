@@ -24,6 +24,7 @@ class ConfigEntry : Configurable {
                         || config.showCurrentLine != form!!.isShowCurrentLine
                         || config.showSelection != form!!.isShowSelection
                         || config.showFindSymbols != form!!.isShowFindSymbols
+                        || config.showChanges != form!!.isShowChanges
                 )
     }
 
@@ -51,6 +52,7 @@ class ConfigEntry : Configurable {
         config.showCurrentLine = form!!.isShowCurrentLine
         config.showSelection = form!!.isShowSelection
         config.showFindSymbols = form!!.isShowFindSymbols
+        config.showChanges = form!!.isShowChanges
 
         configService.notifyChange()
     }
@@ -76,6 +78,7 @@ class ConfigEntry : Configurable {
         form!!.isShowCurrentLine = config.showCurrentLine
         form!!.isShowSelection = config.showSelection
         form!!.isShowFindSymbols = config.showFindSymbols
+        form!!.isShowChanges = config.showChanges
     }
 
     override fun disposeUIResources() {

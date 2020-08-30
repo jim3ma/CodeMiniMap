@@ -29,6 +29,7 @@ public class ConfigForm {
     private JCheckBox showSelection;
     private JCheckBox showBookmarks;
     private JCheckBox showFindSymbols;
+    private JCheckBox showChanges;
 
     public ConfigForm() {
         cmbPixelsPerLine.setModel(new DefaultComboBoxModel(new Integer[]{1, 2, 3, 4}));
@@ -154,5 +155,13 @@ public class ConfigForm {
 
     public void setShowFindSymbols(boolean isShowFindSymbols) {
         showFindSymbols.getModel().setSelected(isShowFindSymbols);
+    }
+
+    public boolean isShowChanges() {
+        return showChanges.getModel().isSelected();
+    }
+
+    public void setShowChanges(boolean isShowChanges) {
+        showChanges.getModel().setSelected(isShowChanges);
     }
 }

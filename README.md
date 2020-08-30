@@ -13,18 +13,20 @@ Works with both light and dark themes using your customized colors for syntax hi
 More Features
 ======
 
- - Bookmark lines highlight.  
+ - **Bookmark lines highlight.**
  ![Bookmark](https://raw.github.com/sleiphur/CodeMiniMap/master/pub/Bookmark.png)  
  ![Bookmark——CurrentLine](https://raw.github.com/sleiphur/CodeMiniMap/master/pub/Bookmark_CurrentLine.png)  
- - Selection lines highlight.  
+ - **Selection lines highlight.**  
  ![Selection](https://raw.github.com/sleiphur/CodeMiniMap/master/pub/Selection.png)  
- - Current line highlight.  
+ - **Current line highlight.**  
  ![CurrentLine](https://raw.github.com/sleiphur/CodeMiniMap/master/pub/Bookmark.png)  
- - Soft wrap model supported.  
+ - **Soft wrap model supported.**  
  ![SoftWrap](https://raw.github.com/sleiphur/CodeMiniMap/master/pub/SoftWrap.png)  
- - Find symbols highlight.  
+ - **Find symbols highlight.**  
  ![FindSymbols](https://raw.github.com/sleiphur/CodeMiniMap/master/pub/FindSymbols.png)  
- 
+ - **Change lines.**
+  ![ChangeLines](https://raw.github.com/sleiphur/CodeMiniMap/master/pub/ChangeLines.png)  
+
  Show/Hide or Enable/Disable CodeMinimap
  ===================
  * **Ctrl-Shift-G** to toggle minimap.  

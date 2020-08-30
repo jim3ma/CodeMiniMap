@@ -23,6 +23,10 @@ import com.intellij.openapi.progress.util.ProgressIndicatorUtils
 import com.intellij.openapi.progress.util.ReadTask
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
+import com.intellij.openapi.vcs.ProjectLevelVcsManager
+import com.intellij.openapi.vcs.changes.LocalChangeList
+import com.intellij.openapi.vcs.changes.LocalChangeListImpl
+import com.intellij.openapi.vcs.impl.LineStatusTrackerManager
 import com.intellij.openapi.vfs.PersistentFSConstants
 import com.intellij.ui.JBColor
 import com.intellij.util.ui.UIUtil
@@ -211,9 +215,6 @@ class CodeMiniMapPanel(
             if (size > 0) {
                 for (i in 0 until size) {
                     val sw = editor.softWrapModel.registeredSoftWraps[i]
-//                            println("sw")
-//                            println(sw.start)
-//                            println(sw.end)
                     softWrappings.add(sw.start)
                 }
             }
@@ -397,17 +398,46 @@ class CodeMiniMapPanel(
             var findResult: FindResult =
                 findManager.findString(editor.document.charsSequence, 0, search.findModel, editor.virtualFile)
             while (findResult.isStringFound) {
-//                println(findResult.startOffset)
-//                println(findResult.endOffset)
                 paintFindSymbol(g, findResult.startOffset, findResult.endOffset)
-                findResult = findManager.findString(editor.document.charsSequence, findResult.endOffset, search.findModel, editor.virtualFile);
+                findResult = findManager.findString(
+                    editor.document.charsSequence,
+                    findResult.endOffset,
+                    search.findModel,
+                    editor.virtualFile
+                );
             }
         }
     }
 
-    private fun paintVCS(g: Graphics2D) {
-        // TODO 文件处在VCS控制下，idea的编辑器左侧会出现新增、修改、删除等指示
-        // TODO 文件处在VCS控制下，打开文件diff窗口，左右两侧出现CMM供浏览
+    private fun paintVCSs(g: Graphics2D) {
+        val ranges = LineStatusTrackerManager.getInstance(project).getLineStatusTracker(editor.virtualFile)?.getRanges()
+        if (ranges != null) {
+            for (range in ranges) {
+                paintVCS(g, range.line1, range.line2)
+            }
+        }
+    }
+
+    private fun paintVCS(g: Graphics2D, startLine: Int, endLine: Int) {
+        if (startLine != endLine) {
+            val offsetStart = editor.logicalPositionToOffset(LogicalPosition(startLine, 0))
+            val offsetEnd = editor.logicalPositionToOffset(LogicalPosition(endLine, 0))
+            val start = editor.offsetToVisualPosition(offsetStart)
+            val end = editor.offsetToVisualPosition(offsetEnd)
+
+            val sX = 0
+            val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart
+            val eX = 4
+            val eY = end.line * config.pixelsPerLine - scrollstate.visibleStart
+
+            g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.80f)
+            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", JBColor.BLUE))
+
+            // Draw the Rect
+            g.fillRect(config.width - eX, sY, eX, eY - sY)
+
+        }
+
     }
 
     private fun codeGlance(g: Graphics2D) {
@@ -437,7 +467,9 @@ class CodeMiniMapPanel(
         if (config.showFindSymbols) {
             paintFindSymbols(g)
         }
-        paintVCS(g)
+        if (config.showChanges) {
+            paintVCSs(g)
+        }
         scrollbar.paint(gfx)
     }
 
@@ -487,7 +519,9 @@ class CodeMiniMapPanel(
         if (config.showFindSymbols) {
             paintFindSymbols(gfx as Graphics2D)
         }
-        paintVCS(gfx as Graphics2D)
+        if (config.showChanges) {
+            paintVCSs(gfx as Graphics2D)
+        }
         gfx?.drawImage(buf, 0, 0, null)
         scrollbar.paint(gfx)
     }

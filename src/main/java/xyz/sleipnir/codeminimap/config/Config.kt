@@ -13,4 +13,5 @@ class Config {
     var showCurrentLine = true
     var showSelection = true
     var showFindSymbols = true
+    var showChanges = true
 }

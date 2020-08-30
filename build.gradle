@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'xyz.sleipnir'
-version '1.5.2'
+version '1.6.0'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -39,6 +39,11 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
+        <h3>1.6.0: features add:</h3>
+        <ul>
+            <li>[FEATURE]Now CMM can show change lines.</li>
+            <li>[FEATURE]Config: Show change lines.</li>
+        </ul>
         <h3>1.5.2: CMM logo updated:</h3>
         <ul>
             <li>[FEATURE]CMM logo updated(Tons of thanks to friends from QQ group).</li>
