@@ -311,7 +311,7 @@ class CodeMiniMapPanel(
         val sX = start.column
         val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart
 
-        g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.80f)
+        g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.60f)
         g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("BOOKMARK_BACKGROUND", JBColor.YELLOW))
 
         // Single line is real easy
@@ -353,7 +353,7 @@ class CodeMiniMapPanel(
         val sX = start.column
         val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart
 
-        g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.80f)
+        g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.60f)
         g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CURRENTLINE_BACKGROUND", JBColor.GREEN))
         // 当前行是bookmark行，则绘制颜色改为CYAN
         val bookmarkManager: BookmarkManager = BookmarkManager.getInstance(project)
@@ -368,6 +368,7 @@ class CodeMiniMapPanel(
                     val offset = editor.logicalPositionToOffset(LogicalPosition(validBookmark.line, 0))
                     val startBookmark = editor.offsetToVisualPosition(offset)
                     if (startBookmark.line == start.line) {
+                        g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.60f)
                         g.color = editor.colorsScheme.getColor(
                             ColorKey.createColorKey(
                                 "CURRENTLINE_BACKGROUND",
@@ -427,10 +428,10 @@ class CodeMiniMapPanel(
 
             val sX = 0
             val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart
-            val eX = 4
+            val eX = 2
             val eY = end.line * config.pixelsPerLine - scrollstate.visibleStart
 
-            g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.80f)
+            g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.30f)
             g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", JBColor.BLUE))
 
             // Draw the Rect
