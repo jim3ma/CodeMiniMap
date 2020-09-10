@@ -23,12 +23,10 @@ import com.intellij.openapi.progress.util.ProgressIndicatorUtils
 import com.intellij.openapi.progress.util.ReadTask
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
-import com.intellij.openapi.vcs.ProjectLevelVcsManager
-import com.intellij.openapi.vcs.changes.LocalChangeList
-import com.intellij.openapi.vcs.changes.LocalChangeListImpl
 import com.intellij.openapi.vcs.impl.LineStatusTrackerManager
 import com.intellij.openapi.vfs.PersistentFSConstants
 import com.intellij.ui.JBColor
+import com.intellij.ui.scale.JBUIScale
 import com.intellij.util.ui.UIUtil
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
@@ -428,7 +426,7 @@ class CodeMiniMapPanel(
 
             val sX = 0
             val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart
-            val eX = 2
+            val eX = 3
             val eY = end.line * config.pixelsPerLine - scrollstate.visibleStart
 
             g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.30f)
@@ -436,6 +434,30 @@ class CodeMiniMapPanel(
 
             // Draw the Rect
             g.fillRect(config.width - eX, sY, eX, eY - sY)
+
+        } else {
+            val offsetStart = editor.logicalPositionToOffset(LogicalPosition(startLine, 0))
+            val start = editor.offsetToVisualPosition(offsetStart)
+
+            val sX = 0
+            val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart
+            val eX = 3
+            val eY = sY + 1
+
+            g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.50f)
+            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", JBColor.BLUE))
+
+            // Draw the Rect
+            g.fillRect(config.width - eX, sY, eX, eY - sY)
+
+            val xPoints = intArrayOf(config.width - eX - (eX - sX), config.width - eX - (eX - sX), config.width - eX - 1)
+            val yPoints = intArrayOf(sY - 2, sY + 2, sY)
+
+            val oldStroke = g.stroke
+            g.stroke = BasicStroke(JBUIScale.scale(1).toFloat())
+            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", JBColor.BLUE))
+            g.drawPolygon(xPoints, yPoints, xPoints.size)
+            g.stroke = oldStroke
 
         }
 

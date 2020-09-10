@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'xyz.sleipnir'
-version '1.6.0'
+version '1.6.1'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -39,6 +39,10 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
+        <h3>1.6.1: features modified:</h3>
+        <ul>
+            <li>[FEATURE]Refine change lines to show deleted lines.</li>
+        </ul>
         <h3>1.6.0: features add:</h3>
         <ul>
             <li>[FEATURE]Now CMM can show change lines.</li>

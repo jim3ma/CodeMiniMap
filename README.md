@@ -25,7 +25,7 @@ More Features
  - **Find symbols highlight.**  
  ![FindSymbols](https://raw.github.com/sleiphur/CodeMiniMap/master/pub/FindSymbols.png)  
  - **Change lines.**
-  ![ChangeLines](https://raw.github.com/sleiphur/CodeMiniMap/master/pub/ChangeLines.png)  
+ ![ChangeLines](https://raw.github.com/sleiphur/CodeMiniMap/master/pub/ChangeLines.png)  
 
  Show/Hide or Enable/Disable CodeMinimap
  ===================
