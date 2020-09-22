@@ -450,7 +450,7 @@ class CodeMiniMapPanel(
             // Draw the Rect
             g.fillRect(config.width - eX, sY, eX, eY - sY)
 
-            val xPoints = intArrayOf(config.width - eX - (eX - sX), config.width - eX - (eX - sX), config.width - eX - 1)
+            val xPoints = intArrayOf(config.width - eX - (eX - sX) - 2, config.width - eX - (eX - sX) - 2, config.width - eX - 1)
             val yPoints = intArrayOf(sY - 2, sY + 2, sY)
 
             val oldStroke = g.stroke
