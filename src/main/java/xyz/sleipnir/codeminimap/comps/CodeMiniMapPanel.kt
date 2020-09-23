@@ -243,8 +243,7 @@ class CodeMiniMapPanel(
         val eX = end.column + 1
         val eY = end.line * config.pixelsPerLine - scrollstate.visibleStart
 
-        g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.80f)
-        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("SELECTION_BACKGROUND", JBColor.BLUE))
+        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("SELECTION_BACKGROUND", Color(0,0,255, 81)))
 
         // Single line is real easy
         if (start.line == end.line) {
@@ -277,8 +276,7 @@ class CodeMiniMapPanel(
         val eX = end.column + 1
         val eY = end.line * config.pixelsPerLine - scrollstate.visibleStart
 
-        g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.80f)
-        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("FIND_SYMBOL", JBColor.ORANGE))
+        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("FIND_SYMBOL", Color(255,165,0, 81)))
 
         // Single line is real easy
         if (start.line == end.line) {
@@ -309,8 +307,7 @@ class CodeMiniMapPanel(
         val sX = start.column
         val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart
 
-        g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.60f)
-        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("BOOKMARK_BACKGROUND", JBColor.YELLOW))
+        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("BOOKMARK_BACKGROUND", Color(255,255,0, 81)))
 
         // Single line is real easy
         g.fillRect(
@@ -351,8 +348,7 @@ class CodeMiniMapPanel(
         val sX = start.column
         val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart
 
-        g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.60f)
-        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CURRENTLINE_BACKGROUND", JBColor.GREEN))
+        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CURRENTLINE_BACKGROUND", Color(0,255,0, 81)))
         // 当前行是bookmark行，则绘制颜色改为CYAN
         val bookmarkManager: BookmarkManager = BookmarkManager.getInstance(project)
         val validBookmarks: List<Bookmark> = bookmarkManager.validBookmarks
@@ -366,7 +362,6 @@ class CodeMiniMapPanel(
                     val offset = editor.logicalPositionToOffset(LogicalPosition(validBookmark.line, 0))
                     val startBookmark = editor.offsetToVisualPosition(offset)
                     if (startBookmark.line == start.line) {
-                        g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.60f)
                         g.color = editor.colorsScheme.getColor(
                             ColorKey.createColorKey(
                                 "CURRENTLINE_BACKGROUND",
@@ -429,8 +424,7 @@ class CodeMiniMapPanel(
             val eX = 3
             val eY = end.line * config.pixelsPerLine - scrollstate.visibleStart
 
-            g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.30f)
-            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", JBColor.BLUE))
+            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", Color(0,0,255, 81)))
 
             // Draw the Rect
             g.fillRect(config.width - eX, sY, eX, eY - sY)
@@ -440,24 +434,23 @@ class CodeMiniMapPanel(
             val start = editor.offsetToVisualPosition(offsetStart)
 
             val sX = 0
-            val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart
+            val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart - 1
             val eX = 3
-            val eY = sY + 1
+            val eY = sY + 1 + 2
 
-            g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.50f)
-            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", JBColor.BLUE))
+            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", Color(128,128,128, 81)))
 
             // Draw the Rect
             g.fillRect(config.width - eX, sY, eX, eY - sY)
 
-            val xPoints = intArrayOf(config.width - eX - (eX - sX) - 2, config.width - eX - (eX - sX) - 2, config.width - eX - 1)
-            val yPoints = intArrayOf(sY - 2, sY + 2, sY)
-
-            val oldStroke = g.stroke
-            g.stroke = BasicStroke(JBUIScale.scale(1).toFloat())
-            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", JBColor.BLUE))
-            g.drawPolygon(xPoints, yPoints, xPoints.size)
-            g.stroke = oldStroke
+//            val xPoints = intArrayOf(config.width - eX - (eX - sX) - 2, config.width - eX - (eX - sX) - 2, config.width - eX - 1)
+//            val yPoints = intArrayOf(sY - 2, sY + 2, sY)
+//
+//            val oldStroke = g.stroke
+//            g.stroke = BasicStroke(JBUIScale.scale(1).toFloat())
+//            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", JBColor.BLUE))
+//            g.drawPolygon(xPoints, yPoints, xPoints.size)
+//            g.stroke = oldStroke
 
         }
 
@@ -519,7 +512,7 @@ class CodeMiniMapPanel(
 
         g.composite = AlphaComposite.getInstance(AlphaComposite.CLEAR)
         g.fillRect(0, 0, width, height)
-        g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER)
+        g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f)
 
         if (editor.document.textLength != 0) {
             g.drawImage(
