@@ -34,12 +34,12 @@ class CodeMiniMap(
             // Create an image that is a bit bigger then the one we need so we don't need to re-create it again soon.
             // Documents can get big, so rather then relative sizes lets just add a fixed amount on.
             // TODO: Add handling for HiDPI scaling and switch back to UIUtil.createImage
-//            img = BufferedImage(config.width, scrollstate.documentHeight + (100 * config.pixelsPerLine), BufferedImage.TYPE_4BYTE_ABGR)
-            img = UIUtil.createImage(
-                config.width,
-                scrollstate.documentHeight + (100 * config.pixelsPerLine),
-                BufferedImage.TYPE_4BYTE_ABGR
-            )
+            img = BufferedImage(config.width, scrollstate.documentHeight + (100 * config.pixelsPerLine), BufferedImage.TYPE_4BYTE_ABGR)
+//            img = UIUtil.createImage(
+//                config.width,
+//                scrollstate.documentHeight + (100 * config.pixelsPerLine),
+//                BufferedImage.TYPE_4BYTE_ABGR
+//            )
             logger.debug("Created new image")
         }
 
