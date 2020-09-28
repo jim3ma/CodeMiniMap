@@ -504,8 +504,8 @@ class CodeMiniMapPanel(
 
         if (buf == null || buf?.width!! < width || buf?.height!! < height) {
             // TODO: Add handling for HiDPI scaling and switch back to UIUtil.createImage
-//            buf = BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR)
-            buf = UIUtil.createImage(width, height, BufferedImage.TYPE_4BYTE_ABGR)
+            buf = BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR)
+//            buf = UIUtil.createImage(width, height, BufferedImage.TYPE_4BYTE_ABGR)
         }
 
         val g = buf!!.createGraphics()
