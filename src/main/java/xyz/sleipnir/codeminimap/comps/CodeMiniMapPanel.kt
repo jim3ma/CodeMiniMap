@@ -243,7 +243,15 @@ class CodeMiniMapPanel(
         val eX = end.column + 1
         val eY = end.line * config.pixelsPerLine - scrollstate.visibleStart
 
-        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("SELECTION_BACKGROUND", Color(0,0,255, 81)))
+        var c: Color
+        if (config.selectionColor != null && config.selectionColor.length == 6) {
+            c = Color.decode("#" + config.selectionColor)
+            c = Color(c.red, c.green, c.blue, 85)
+        } else {
+            c = Color(0,0,255, 85)
+        }
+
+        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("SELECTION_BG", c))
 
         // Single line is real easy
         if (start.line == end.line) {
@@ -276,7 +284,15 @@ class CodeMiniMapPanel(
         val eX = end.column + 1
         val eY = end.line * config.pixelsPerLine - scrollstate.visibleStart
 
-        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("FIND_SYMBOL", Color(255,165,0, 81)))
+        var c: Color
+        if (config.findSymbolsColor != null && config.findSymbolsColor.length == 6) {
+            c = Color.decode("#" + config.findSymbolsColor)
+            c = Color(c.red, c.green, c.blue, 85)
+        } else {
+            c = Color(255,165,0, 85)
+        }
+
+        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("FIND_SYMBOL", c))
 
         // Single line is real easy
         if (start.line == end.line) {
@@ -307,7 +323,15 @@ class CodeMiniMapPanel(
         val sX = start.column
         val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart
 
-        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("BOOKMARK_BACKGROUND", Color(255,255,0, 81)))
+        var c: Color
+        if (config.bookmarksColor != null && config.bookmarksColor.length == 6) {
+            c = Color.decode("#" + config.bookmarksColor)
+            c = Color(c.red, c.green, c.blue, 85)
+        } else {
+            c = Color(255,255,0, 85)
+        }
+
+        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("BOOKMARK_BACKGROUND", c))
 
         // Single line is real easy
         g.fillRect(
@@ -348,7 +372,15 @@ class CodeMiniMapPanel(
         val sX = start.column
         val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart
 
-        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CURRENTLINE_BACKGROUND", Color(0,255,0, 81)))
+        var c: Color
+        if (config.currentLineColor != null && config.currentLineColor.length == 6) {
+            c = Color.decode("#" + config.currentLineColor)
+            c = Color(c.red, c.green, c.blue, 85)
+        } else {
+            c = Color(0,255,0, 85)
+        }
+
+        g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CURRENTLINE_BACKGROUND", c))
         // 当前行是bookmark行，则绘制颜色改为CYAN
         val bookmarkManager: BookmarkManager = BookmarkManager.getInstance(project)
         val validBookmarks: List<Bookmark> = bookmarkManager.validBookmarks
@@ -364,8 +396,8 @@ class CodeMiniMapPanel(
                     if (startBookmark.line == start.line) {
                         g.color = editor.colorsScheme.getColor(
                             ColorKey.createColorKey(
-                                "CURRENTLINE_BACKGROUND",
-                                JBColor.CYAN
+                                "CURRENTLINE_BOOKMARK_BACKGROUND",
+                                Color(0, 128, 0, 85)
                             )
                         )
                         break
@@ -424,7 +456,15 @@ class CodeMiniMapPanel(
             val eX = 3
             val eY = end.line * config.pixelsPerLine - scrollstate.visibleStart
 
-            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", Color(0,0,255, 81)))
+            var c: Color
+            if (config.changesColor != null && config.changesColor.length == 6) {
+                c = Color.decode("#" + config.changesColor)
+                c = Color(c.red, c.green, c.blue, 85)
+            } else {
+                c = Color(0,0,255, 85)
+            }
+
+            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", c))
 
             // Draw the Rect
             g.fillRect(config.width - eX, sY, eX, eY - sY)

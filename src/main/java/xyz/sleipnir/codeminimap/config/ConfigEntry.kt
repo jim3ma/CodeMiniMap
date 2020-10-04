@@ -25,6 +25,11 @@ class ConfigEntry : Configurable {
                         || config.showSelection != form!!.isShowSelection
                         || config.showFindSymbols != form!!.isShowFindSymbols
                         || config.showChanges != form!!.isShowChanges
+                        || config.selectionColor != form!!.selectionColor
+                        || config.bookmarksColor != form!!.bookmarksColor
+                        || config.currentLineColor != form!!.currentLineColor
+                        || config.findSymbolsColor != form!!.findSymbolsColor
+                        || config.changesColor != form!!.changesColor
                 )
     }
 
@@ -53,6 +58,11 @@ class ConfigEntry : Configurable {
         config.showSelection = form!!.isShowSelection
         config.showFindSymbols = form!!.isShowFindSymbols
         config.showChanges = form!!.isShowChanges
+        config.selectionColor = form!!.selectionColor
+        config.currentLineColor = form!!.currentLineColor
+        config.bookmarksColor = form!!.bookmarksColor
+        config.findSymbolsColor = form!!.findSymbolsColor
+        config.changesColor = form!!.changesColor
 
         configService.notifyChange()
     }
@@ -79,6 +89,11 @@ class ConfigEntry : Configurable {
         form!!.isShowSelection = config.showSelection
         form!!.isShowFindSymbols = config.showFindSymbols
         form!!.isShowChanges = config.showChanges
+        form!!.selectionColor = config.selectionColor
+        form!!.currentLineColor = config.currentLineColor
+        form!!.bookmarksColor = config.bookmarksColor
+        form!!.findSymbolsColor = config.findSymbolsColor
+        form!!.changesColor = config.changesColor
     }
 
     override fun disposeUIResources() {

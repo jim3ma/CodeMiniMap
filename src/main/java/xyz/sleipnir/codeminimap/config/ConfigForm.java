@@ -30,6 +30,11 @@ public class ConfigForm {
     private JCheckBox showBookmarks;
     private JCheckBox showFindSymbols;
     private JCheckBox showChanges;
+    private JTextField txtCurrentLineColor;
+    private JTextField txtSelectionColor;
+    private JTextField txtBookmarksColor;
+    private JTextField txtFindSymbolsColor;
+    private JTextField txtChangesColor;
 
     public ConfigForm() {
         cmbPixelsPerLine.setModel(new DefaultComboBoxModel(new Integer[]{1, 2, 3, 4}));
@@ -163,5 +168,45 @@ public class ConfigForm {
 
     public void setShowChanges(boolean isShowChanges) {
         showChanges.getModel().setSelected(isShowChanges);
+    }
+
+    public String getSelectionColor() {
+        return txtSelectionColor.getText();
+    }
+
+    public void setSelectionColor(String selectionColor) {
+        txtSelectionColor.setText(selectionColor);
+    }
+
+    public String getCurrentLineColor() {
+        return txtCurrentLineColor.getText();
+    }
+
+    public void setCurrentLineColor(String currentLineColor) {
+        txtCurrentLineColor.setText(currentLineColor);
+    }
+
+    public String getBookmarksColor() {
+        return txtBookmarksColor.getText();
+    }
+
+    public void setBookmarksColor(String bookmarksColor) {
+        txtBookmarksColor.setText(bookmarksColor);
+    }
+
+    public String getFindSymbolsColor() {
+        return txtFindSymbolsColor.getText();
+    }
+
+    public void setFindSymbolsColor(String findSymbolsColor) {
+        txtFindSymbolsColor.setText(findSymbolsColor);
+    }
+
+    public String getChangesColor() {
+        return txtChangesColor.getText();
+    }
+
+    public void setChangesColor(String changesColor) {
+        txtChangesColor.setText(changesColor);
     }
 }

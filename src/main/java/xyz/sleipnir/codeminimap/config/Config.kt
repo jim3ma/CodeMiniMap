@@ -10,13 +10,13 @@ class Config {
     var rightAligned: Boolean = true
     var widthLocked: Boolean = false
     var showBookmarks = true
-    var bookmarksColor: String = ""
+    var bookmarksColor: String = "FFFF00"
     var showCurrentLine = true
-    var currentLineColor: String = ""
+    var currentLineColor: String = "00FF00"
     var showSelection = true
-    var selectionColor: String = ""
+    var selectionColor: String = "A6D2FF"
     var showFindSymbols = true
-    var findSymbolsColor: String = ""
+    var findSymbolsColor: String = "FFA500"
     var showChanges = true
-    var changesColor: String = ""
+    var changesColor: String = "0000FF"
 }
