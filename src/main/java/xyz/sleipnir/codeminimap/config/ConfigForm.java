@@ -60,6 +60,117 @@ public class ConfigForm {
                 return true;
             }
         });
+
+        txtBookmarksColor.setInputVerifier(new InputVerifier() {
+            private final Pattern pattern = Pattern.compile("[a-fA-F0-9]{6}");
+            private final Border defaultBorder = txtBookmarksColor.getBorder();
+            private final Border invalidBorder = BorderFactory.createLineBorder(JBColor.RED);
+
+            @Override
+            public boolean verify(JComponent input) {
+                boolean valid = pattern.matcher(txtBookmarksColor.getText()).matches();
+                if (!valid)
+                    txtBookmarksColor.setBorder(invalidBorder);
+                else
+                    txtBookmarksColor.setBorder(defaultBorder);
+                return valid;
+            }
+
+            @Override
+            public boolean shouldYieldFocus(JComponent input) {
+                verify(input);
+                return true;
+            }
+        });
+
+        txtCurrentLineColor.setInputVerifier(new InputVerifier() {
+            private final Pattern pattern = Pattern.compile("[a-fA-F0-9]{6}");
+            private final Border defaultBorder = txtCurrentLineColor.getBorder();
+            private final Border invalidBorder = BorderFactory.createLineBorder(JBColor.RED);
+
+            @Override
+            public boolean verify(JComponent input) {
+                boolean valid = pattern.matcher(txtCurrentLineColor.getText()).matches();
+                if (!valid)
+                    txtCurrentLineColor.setBorder(invalidBorder);
+                else
+                    txtCurrentLineColor.setBorder(defaultBorder);
+                return valid;
+            }
+
+            @Override
+            public boolean shouldYieldFocus(JComponent input) {
+                verify(input);
+                return true;
+            }
+        });
+
+        txtSelectionColor.setInputVerifier(new InputVerifier() {
+            private final Pattern pattern = Pattern.compile("[a-fA-F0-9]{6}");
+            private final Border defaultBorder = txtSelectionColor.getBorder();
+            private final Border invalidBorder = BorderFactory.createLineBorder(JBColor.RED);
+
+            @Override
+            public boolean verify(JComponent input) {
+                boolean valid = pattern.matcher(txtSelectionColor.getText()).matches();
+                if (!valid)
+                    txtSelectionColor.setBorder(invalidBorder);
+                else
+                    txtSelectionColor.setBorder(defaultBorder);
+                return valid;
+            }
+
+            @Override
+            public boolean shouldYieldFocus(JComponent input) {
+                verify(input);
+                return true;
+            }
+        });
+
+        txtChangesColor.setInputVerifier(new InputVerifier() {
+            private final Pattern pattern = Pattern.compile("[a-fA-F0-9]{6}");
+            private final Border defaultBorder = txtChangesColor.getBorder();
+            private final Border invalidBorder = BorderFactory.createLineBorder(JBColor.RED);
+
+            @Override
+            public boolean verify(JComponent input) {
+                boolean valid = pattern.matcher(txtChangesColor.getText()).matches();
+                if (!valid)
+                    txtChangesColor.setBorder(invalidBorder);
+                else
+                    txtChangesColor.setBorder(defaultBorder);
+                return valid;
+            }
+
+            @Override
+            public boolean shouldYieldFocus(JComponent input) {
+                verify(input);
+                return true;
+            }
+        });
+
+        txtFindSymbolsColor.setInputVerifier(new InputVerifier() {
+            private final Pattern pattern = Pattern.compile("[a-fA-F0-9]{6}");
+            private final Border defaultBorder = txtFindSymbolsColor.getBorder();
+            private final Border invalidBorder = BorderFactory.createLineBorder(JBColor.RED);
+
+            @Override
+            public boolean verify(JComponent input) {
+                boolean valid = pattern.matcher(txtFindSymbolsColor.getText()).matches();
+                if (!valid)
+                    txtFindSymbolsColor.setBorder(invalidBorder);
+                else
+                    txtFindSymbolsColor.setBorder(defaultBorder);
+                return valid;
+            }
+
+            @Override
+            public boolean shouldYieldFocus(JComponent input) {
+                verify(input);
+                return true;
+            }
+        });
+
     }
 
     public JPanel getRoot() {
