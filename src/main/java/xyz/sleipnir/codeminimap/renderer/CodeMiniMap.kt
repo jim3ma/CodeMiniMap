@@ -83,8 +83,12 @@ class CodeMiniMap(
                 val isFolded = editor.foldingModel.isOffsetCollapsed(i)
                 if (isFolded) {
                     val fold = editor.foldingModel.getCollapsedRegionAtOffset(i)!!
-                    foldedLines += editor.document.getLineNumber(fold.endOffset) - editor.document.getLineNumber(fold.startOffset)
-                    i = fold.endOffset
+                    println(fold.endOffset)
+                    println(fold.startOffset)
+                    if (fold.endOffset >=0 && fold.startOffset >=0) {
+                        foldedLines += editor.document.getLineNumber(fold.endOffset) - editor.document.getLineNumber(fold.startOffset)
+                        i = fold.endOffset
+                    }
                 }
                 isFolded
             }
