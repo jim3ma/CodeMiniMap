@@ -246,9 +246,9 @@ class CodeMiniMapPanel(
         var c: Color
         if (config.selectionColor != null && config.selectionColor.length == 6) {
             c = Color.decode("#" + config.selectionColor)
-            c = Color(c.red, c.green, c.blue, 85)
+            c = Color(c.red, c.green, c.blue, 127)
         } else {
-            c = Color(0,0,255, 85)
+            c = Color(0,0,255, 127)
         }
 
         g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("SELECTION_BG", c))
@@ -287,9 +287,9 @@ class CodeMiniMapPanel(
         var c: Color
         if (config.findSymbolsColor != null && config.findSymbolsColor.length == 6) {
             c = Color.decode("#" + config.findSymbolsColor)
-            c = Color(c.red, c.green, c.blue, 85)
+            c = Color(c.red, c.green, c.blue, 127)
         } else {
-            c = Color(255,165,0, 85)
+            c = Color(255,165,0, 127)
         }
 
         g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("FIND_SYMBOL", c))
@@ -326,9 +326,9 @@ class CodeMiniMapPanel(
         var c: Color
         if (config.bookmarksColor != null && config.bookmarksColor.length == 6) {
             c = Color.decode("#" + config.bookmarksColor)
-            c = Color(c.red, c.green, c.blue, 85)
+            c = Color(c.red, c.green, c.blue, 127)
         } else {
-            c = Color(255,255,0, 85)
+            c = Color(255,255,0, 127)
         }
 
         g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("BOOKMARK_BACKGROUND", c))
@@ -375,9 +375,9 @@ class CodeMiniMapPanel(
         var c: Color
         if (config.currentLineColor != null && config.currentLineColor.length == 6) {
             c = Color.decode("#" + config.currentLineColor)
-            c = Color(c.red, c.green, c.blue, 85)
+            c = Color(c.red, c.green, c.blue, 127)
         } else {
-            c = Color(0,255,0, 85)
+            c = Color(0,255,0, 127)
         }
 
         g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CURRENTLINE_BACKGROUND", c))
@@ -397,7 +397,7 @@ class CodeMiniMapPanel(
                         g.color = editor.colorsScheme.getColor(
                             ColorKey.createColorKey(
                                 "CURRENTLINE_BOOKMARK_BACKGROUND",
-                                Color(0, 128, 0, 85)
+                                Color(0, 128, 0, 127)
                             )
                         )
                         break
@@ -459,9 +459,9 @@ class CodeMiniMapPanel(
             var c: Color
             if (config.changesColor != null && config.changesColor.length == 6) {
                 c = Color.decode("#" + config.changesColor)
-                c = Color(c.red, c.green, c.blue, 85)
+                c = Color(c.red, c.green, c.blue, 127)
             } else {
-                c = Color(0,0,255, 85)
+                c = Color(0,0,255, 127)
             }
 
             g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", c))
