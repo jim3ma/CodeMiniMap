@@ -83,8 +83,8 @@ class CodeMiniMap(
                 val isFolded = editor.foldingModel.isOffsetCollapsed(i)
                 if (isFolded) {
                     val fold = editor.foldingModel.getCollapsedRegionAtOffset(i)!!
-                    println(fold.endOffset)
-                    println(fold.startOffset)
+//                    println(fold.endOffset)
+//                    println(fold.startOffset)
                     if (fold.endOffset >=0 && fold.startOffset >=0) {
                         foldedLines += editor.document.getLineNumber(fold.endOffset) - editor.document.getLineNumber(fold.startOffset)
                         i = fold.endOffset
@@ -96,20 +96,24 @@ class CodeMiniMap(
             // New line, pre-loop to count whitespace from start of line.
             if (y != prevY) {
                 x = 0
-                i = line.start
-                while (i < tokenStart) {
-                    if (checkFold())
-                        continue
+                try {
+                    i = line.start
+                    while (i < tokenStart) {
+                        if (checkFold())
+                            continue
 
-                    x += if (text[i++] == '\t') {
-                        4
-                    } else {
-                        1
+                        x += if (text[i++] == '\t') {
+                            4
+                        } else {
+                            1
+                        }
+
+                        // Abort if this line is getting too long...
+                        if (softWrappings.size == 0 && x > config.width)
+                            break
                     }
-
-                    // Abort if this line is getting too long...
-                    if (softWrappings.size == 0 && x > config.width)
-                        break
+                } catch (e : Exception) {
+                    e.printStackTrace()
                 }
             }
 
