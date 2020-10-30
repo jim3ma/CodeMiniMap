@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'xyz.sleipnir'
-version '1.6.5'
+version '1.6.6'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -39,6 +39,10 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
+        <h3>1.6.6: features modified:</h3>
+        <ul>
+            <li>[FEATURE]Differentiate colors of change lines.</li>
+        </ul>
         <h3>1.6.5: bug fix:</h3>
         <ul>
             <li>[FIXED]Occasionally error occurred when use the 'line.start' api.</li>
