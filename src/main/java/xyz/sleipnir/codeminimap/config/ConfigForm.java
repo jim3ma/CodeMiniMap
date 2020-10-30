@@ -35,6 +35,8 @@ public class ConfigForm {
     private JTextField txtBookmarksColor;
     private JTextField txtFindSymbolsColor;
     private JTextField txtChangesColor;
+    private JTextField txtChangesAddColor;
+    private JTextField txtChangesDeleteColor;
 
     public ConfigForm() {
         cmbPixelsPerLine.setModel(new DefaultComboBoxModel(new Integer[]{1, 2, 3, 4}));
@@ -319,5 +321,21 @@ public class ConfigForm {
 
     public void setChangesColor(String changesColor) {
         txtChangesColor.setText(changesColor);
+    }
+
+    public String getChangesAddColor() {
+        return txtChangesAddColor.getText();
+    }
+
+    public void setChangesAddColor(String changesAddColor) {
+        txtChangesAddColor.setText(changesAddColor);
+    }
+
+    public String getChangesDeleteColor() {
+        return txtChangesDeleteColor.getText();
+    }
+
+    public void setChangesDeleteColor(String changesDeleteColor) {
+        txtChangesDeleteColor.setText(changesDeleteColor);
     }
 }

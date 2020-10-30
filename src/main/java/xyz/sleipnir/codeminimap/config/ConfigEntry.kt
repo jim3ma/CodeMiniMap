@@ -30,6 +30,8 @@ class ConfigEntry : Configurable {
                         || config.currentLineColor != form!!.currentLineColor
                         || config.findSymbolsColor != form!!.findSymbolsColor
                         || config.changesColor != form!!.changesColor
+                        || config.changesAddColor != form!!.changesAddColor
+                        || config.changesDeleteColor != form!!.changesDeleteColor
                 )
     }
 
@@ -63,6 +65,8 @@ class ConfigEntry : Configurable {
         config.bookmarksColor = form!!.bookmarksColor
         config.findSymbolsColor = form!!.findSymbolsColor
         config.changesColor = form!!.changesColor
+        config.changesAddColor = form!!.changesAddColor
+        config.changesDeleteColor = form!!.changesDeleteColor
 
         configService.notifyChange()
     }
@@ -94,6 +98,8 @@ class ConfigEntry : Configurable {
         form!!.bookmarksColor = config.bookmarksColor
         form!!.findSymbolsColor = config.findSymbolsColor
         form!!.changesColor = config.changesColor
+        form!!.changesAddColor = config.changesAddColor
+        form!!.changesDeleteColor = config.changesDeleteColor
     }
 
     override fun disposeUIResources() {

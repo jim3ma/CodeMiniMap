@@ -439,12 +439,16 @@ class CodeMiniMapPanel(
         val ranges = LineStatusTrackerManager.getInstance(project).getLineStatusTracker(editor.virtualFile)?.getRanges()
         if (ranges != null) {
             for (range in ranges) {
-                paintVCS(g, range.line1, range.line2)
+                var type = 0
+                if (range.innerRanges != null) {
+                    type = 1
+                }
+                paintVCS(g, range.line1, range.line2, type)
             }
         }
     }
 
-    private fun paintVCS(g: Graphics2D, startLine: Int, endLine: Int) {
+    private fun paintVCS(g: Graphics2D, startLine: Int, endLine: Int, type: Int) {
         if (startLine != endLine) {
             val offsetStart = editor.logicalPositionToOffset(LogicalPosition(startLine, 0))
             val offsetEnd = editor.logicalPositionToOffset(LogicalPosition(endLine, 0))
@@ -453,16 +457,28 @@ class CodeMiniMapPanel(
 
             val sX = 0
             val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart
-            val eX = 3
+            val eX = 2
             val eY = end.line * config.pixelsPerLine - scrollstate.visibleStart
 
             var c: Color
-            if (config.changesColor != null && config.changesColor.length == 6) {
-                c = Color.decode("#" + config.changesColor)
-                c = Color(c.red, c.green, c.blue, 127)
+
+            if (type == 1) {
+                if (config.changesColor != null && config.changesColor.length == 6) {
+                    c = Color.decode("#" + config.changesColor)
+                    c = Color(c.red, c.green, c.blue, 96)
+                } else {
+                    c = Color(0,0,255, 96)
+                }
             } else {
-                c = Color(0,0,255, 127)
+                if (config.changesAddColor != null && config.changesAddColor.length == 6) {
+                    c = Color.decode("#" + config.changesAddColor)
+                    c = Color(c.red, c.green, c.blue, 96)
+                } else {
+                    c = Color(0,255,0, 96)
+                }
             }
+
+
 
             g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", c))
 
@@ -475,10 +491,19 @@ class CodeMiniMapPanel(
 
             val sX = 0
             val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart - 1
-            val eX = 3
+            val eX = 2
             val eY = sY + 1 + 2
 
-            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", Color(128,128,128, 81)))
+            var c: Color
+
+                if (config.changesDeleteColor != null && config.changesDeleteColor.length == 6) {
+                    c = Color.decode("#" + config.changesDeleteColor)
+                    c = Color(c.red, c.green, c.blue, 96)
+                } else {
+                    c = Color(128,128,128, 96)
+                }
+
+            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", c))
 
             // Draw the Rect
             g.fillRect(config.width - eX, sY, eX, eY - sY)

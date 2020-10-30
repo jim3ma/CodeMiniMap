@@ -19,4 +19,6 @@ class Config {
     var findSymbolsColor: String = "FFA500"
     var showChanges = true
     var changesColor: String = "0000FF"
+    var changesAddColor: String = "00FF00"
+    var changesDeleteColor: String = "808080"
 }
