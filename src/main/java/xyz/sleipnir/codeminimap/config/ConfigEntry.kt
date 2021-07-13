@@ -32,6 +32,9 @@ class ConfigEntry : Configurable {
                         || config.changesColor != form!!.changesColor
                         || config.changesAddColor != form!!.changesAddColor
                         || config.changesDeleteColor != form!!.changesDeleteColor
+                        || config.showErrorsAndWarnings != form!!.isShowErrorsAndWarnings
+                        || config.errorsColor != form!!.errorsColor
+                        || config.warningsColor != form!!.warningsColor
                 )
     }
 
@@ -67,6 +70,9 @@ class ConfigEntry : Configurable {
         config.changesColor = form!!.changesColor
         config.changesAddColor = form!!.changesAddColor
         config.changesDeleteColor = form!!.changesDeleteColor
+        config.showErrorsAndWarnings = form!!.isShowErrorsAndWarnings
+        config.errorsColor = form!!.errorsColor
+        config.warningsColor = form!!.warningsColor
 
         configService.notifyChange()
     }
@@ -100,6 +106,9 @@ class ConfigEntry : Configurable {
         form!!.changesColor = config.changesColor
         form!!.changesAddColor = config.changesAddColor
         form!!.changesDeleteColor = config.changesDeleteColor
+        form!!.isShowErrorsAndWarnings = config.showErrorsAndWarnings
+        form!!.errorsColor = config.errorsColor
+        form!!.warningsColor = config.warningsColor
     }
 
     override fun disposeUIResources() {

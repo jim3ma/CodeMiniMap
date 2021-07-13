@@ -37,6 +37,9 @@ public class ConfigForm {
     private JTextField txtChangesColor;
     private JTextField txtChangesAddColor;
     private JTextField txtChangesDeleteColor;
+    private JCheckBox showErrorsAndWarnings;
+    private JTextField txtErrorsColor;
+    private JTextField txtWarningsColor;
 
     public ConfigForm() {
         cmbPixelsPerLine.setModel(new DefaultComboBoxModel(new Integer[]{1, 2, 3, 4}));
@@ -337,5 +340,29 @@ public class ConfigForm {
 
     public void setChangesDeleteColor(String changesDeleteColor) {
         txtChangesDeleteColor.setText(changesDeleteColor);
+    }
+
+    public boolean isShowErrorsAndWarnings() {
+        return showErrorsAndWarnings.getModel().isSelected();
+    }
+
+    public void setShowErrorsAndWarnings(boolean isShowErrorsAndWarnings) {
+        showErrorsAndWarnings.getModel().setSelected(isShowErrorsAndWarnings);
+    }
+
+    public String getErrorsColor() {
+        return txtErrorsColor.getText();
+    }
+
+    public void setErrorsColor(String errorsColor) {
+        txtErrorsColor.setText(errorsColor);
+    }
+
+    public String getWarningsColor() {
+        return txtWarningsColor.getText();
+    }
+
+    public void setWarningsColor(String warningsColor) {
+        txtWarningsColor.setText(warningsColor);
     }
 }

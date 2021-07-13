@@ -14,6 +14,10 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>1.6.7: features added:</h3>
+        <ul>
+            <li>[FEATURE]Highlighting for syntax errors/warnings.</li>
+        </ul>
         <h3>1.6.6: features modified:</h3>
         <ul>
             <li>[FEATURE]Differentiate colors of change lines.</li>

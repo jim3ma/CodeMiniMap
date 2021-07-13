@@ -448,6 +448,10 @@ class CodeMiniMapPanel(
         }
     }
 
+    private fun paintErrorsAndWarnings(g: Graphics2D) {
+
+    }
+
     private fun paintVCS(g: Graphics2D, startLine: Int, endLine: Int, type: Int) {
         if (startLine != endLine) {
             val offsetStart = editor.logicalPositionToOffset(LogicalPosition(startLine, 0))

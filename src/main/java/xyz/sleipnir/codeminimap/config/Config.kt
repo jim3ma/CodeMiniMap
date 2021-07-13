@@ -21,4 +21,7 @@ class Config {
     var changesColor: String = "0000FF"
     var changesAddColor: String = "00FF00"
     var changesDeleteColor: String = "808080"
+    var showErrorsAndWarnings = true
+    var errorsColor: String = "FF0000"
+    var warningsColor: String = "FFFF00"
 }
