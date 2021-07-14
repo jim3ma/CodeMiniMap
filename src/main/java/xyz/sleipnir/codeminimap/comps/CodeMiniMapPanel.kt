@@ -25,9 +25,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vcs.impl.LineStatusTrackerManager
 import com.intellij.openapi.vfs.PersistentFSConstants
-import com.intellij.ui.JBColor
-import com.intellij.ui.scale.JBUIScale
-import com.intellij.util.ui.UIUtil
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 import xyz.sleipnir.codeminimap.concurrent.DirtyLock
@@ -449,7 +446,95 @@ class CodeMiniMapPanel(
     }
 
     private fun paintErrorsAndWarnings(g: Graphics2D) {
+        println("-error/warning--------->" + editor.filteredDocumentMarkupModel.allHighlighters.size)
+        for (rangeHighlighter in editor.filteredDocumentMarkupModel.allHighlighters) {
+            val est = rangeHighlighter.errorStripeTooltip.toString()
+//            println(est)
+            if (est.indexOf("group=4") >= 0) { // error
+                val start = editor.offsetToVisualPosition(rangeHighlighter.startOffset)
+                val end = editor.offsetToVisualPosition(rangeHighlighter.endOffset)
+//                println("-error--> " + start.line + "," + end.line)
+                paintErrorsAndWarning(g, start.line, end.line, 1)
+            }
+            if (est.indexOf("group=5") >= 0) { // warning
+                val start = editor.offsetToVisualPosition(rangeHighlighter.startOffset)
+                val end = editor.offsetToVisualPosition(rangeHighlighter.endOffset)
+//                println("-warning--> " + start.line + "," + end.line)
+                paintErrorsAndWarning(g, start.line, end.line, 2)
+            }
+        }
+    }
 
+    private fun paintErrorsAndWarning(g: Graphics2D, startLine: Int, endLine: Int, type: Int) {
+        if (startLine != endLine) {
+            val offsetStart = editor.logicalPositionToOffset(LogicalPosition(startLine, 0))
+            val offsetEnd = editor.logicalPositionToOffset(LogicalPosition(endLine, 0))
+            val start = editor.offsetToVisualPosition(offsetStart)
+            val end = editor.offsetToVisualPosition(offsetEnd)
+
+            val sX = 0
+            val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart
+            val eX = 2
+            val eY = end.line * config.pixelsPerLine - scrollstate.visibleStart
+
+            var c: Color
+
+            if (type == 1) {
+                if (config.errorsColor != null && config.errorsColor.length == 6) {
+                    c = Color.decode("#" + config.errorsColor)
+                    c = Color(c.red, c.green, c.blue, 96)
+                } else {
+                    c = Color(255,0,0, 96)
+                }
+            } else {
+                if (config.warningsColor != null && config.warningsColor.length == 6) {
+                    c = Color.decode("#" + config.changesAddColor)
+                    c = Color(c.red, c.green, c.blue, 96)
+                } else {
+                    c = Color(255,255,0, 96)
+                }
+            }
+
+
+
+            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("ERRORSWARNINGS_BACKGROUND", c))
+
+            // Draw the Rect
+            g.fillRect(config.width - eX - eX, sY, eX, eY - sY)
+
+        } else {
+            val offsetStart = editor.logicalPositionToOffset(LogicalPosition(startLine, 0))
+            val start = editor.offsetToVisualPosition(offsetStart)
+
+            val sX = 0
+            val sY = start.line * config.pixelsPerLine - scrollstate.visibleStart - 1
+            val eX = 2
+            val eY = sY + 1 + config.pixelsPerLine
+
+            var c: Color
+
+            if (type == 1) {
+                if (config.errorsColor != null && config.errorsColor.length == 6) {
+                    c = Color.decode("#" + config.errorsColor)
+                    c = Color(c.red, c.green, c.blue, 96)
+                } else {
+                    c = Color(255,0,0, 96)
+                }
+            } else {
+                if (config.warningsColor != null && config.warningsColor.length == 6) {
+                    c = Color.decode("#" + config.changesAddColor)
+                    c = Color(c.red, c.green, c.blue, 96)
+                } else {
+                    c = Color(255,255,0, 96)
+                }
+            }
+
+            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("ERRORSWARNINGS_BACKGROUND", c))
+
+            // Draw the Rect
+            g.fillRect(config.width - eX - eX, sY, eX, eY - sY)
+
+        }
     }
 
     private fun paintVCS(g: Graphics2D, startLine: Int, endLine: Int, type: Int) {
@@ -555,6 +640,9 @@ class CodeMiniMapPanel(
         if (config.showChanges) {
             paintVCSs(g)
         }
+        if (config.showErrorsAndWarnings) {
+            paintErrorsAndWarnings(g)
+        }
         scrollbar.paint(gfx)
     }
 
@@ -606,6 +694,9 @@ class CodeMiniMapPanel(
         }
         if (config.showChanges) {
             paintVCSs(gfx as Graphics2D)
+        }
+        if (config.showErrorsAndWarnings) {
+            paintErrorsAndWarnings(gfx as Graphics2D)
         }
         gfx?.drawImage(buf, 0, 0, null)
         scrollbar.paint(gfx)
