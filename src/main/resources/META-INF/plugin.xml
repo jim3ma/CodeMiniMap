@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>Code MiniMap</id>
     <name>Code MiniMap</name>
-    <vendor email="sleipnirxyz+CodeMiniMap@gmail.com" url="https://plugins.jetbrains.com/plugin/14959-code-minimap">SleipnirXYZ</vendor>
+    <vendor email="99596783@qq.com" url="https://github.com/sleiphur/CodeMiniMap">Sleiphur</vendor>
 
     <description><![CDATA[
         <p>
@@ -100,11 +100,12 @@
     </actions>
 
     <applicationListeners>
-        <listener class="xyz.sleipnir.codeminimap.listener.ProjectInitListener" topic="com.intellij.openapi.project.ProjectManagerListener"/>
+        <listener class="xyz.sleipnir.codeminimap.listener.ProjectInitListener"
+                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="xyz.sleipnir.codeminimap.config.ConfigService" />
-        <applicationConfigurable instance="xyz.sleipnir.codeminimap.config.ConfigEntry" />
+        <applicationService serviceImplementation="xyz.sleipnir.codeminimap.config.ConfigService"/>
+        <applicationConfigurable instance="xyz.sleipnir.codeminimap.config.ConfigEntry"/>
     </extensions>
 </idea-plugin>

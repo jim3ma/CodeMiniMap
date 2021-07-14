@@ -1,5 +1,6 @@
 package xyz.sleipnir.codeminimap.comps
 
+import com.intellij.codeInsight.daemon.impl.SeverityUtil
 import com.intellij.find.EditorSearchSession
 import com.intellij.find.FindManager
 import com.intellij.find.FindResult
@@ -246,7 +247,7 @@ class CodeMiniMapPanel(
             c = Color.decode("#" + config.selectionColor)
             c = Color(c.red, c.green, c.blue, 127)
         } else {
-            c = Color(0,0,255, 127)
+            c = Color(0, 0, 255, 127)
         }
 
         g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("SELECTION_BG", c))
@@ -287,7 +288,7 @@ class CodeMiniMapPanel(
             c = Color.decode("#" + config.findSymbolsColor)
             c = Color(c.red, c.green, c.blue, 127)
         } else {
-            c = Color(255,165,0, 127)
+            c = Color(255, 165, 0, 127)
         }
 
         g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("FIND_SYMBOL", c))
@@ -326,7 +327,7 @@ class CodeMiniMapPanel(
             c = Color.decode("#" + config.bookmarksColor)
             c = Color(c.red, c.green, c.blue, 127)
         } else {
-            c = Color(255,255,0, 127)
+            c = Color(255, 255, 0, 127)
         }
 
         g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("BOOKMARK_BACKGROUND", c))
@@ -375,7 +376,7 @@ class CodeMiniMapPanel(
             c = Color.decode("#" + config.currentLineColor)
             c = Color(c.red, c.green, c.blue, 127)
         } else {
-            c = Color(0,255,0, 127)
+            c = Color(0, 255, 0, 127)
         }
 
         g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CURRENTLINE_BACKGROUND", c))
@@ -449,7 +450,8 @@ class CodeMiniMapPanel(
     private class ErrorOrWarning public constructor(
         public val startLine: Int,
         public val endLine: Int,
-        public val type: Int
+        public val type: Int,
+        public val layer: Int
     )
 
     private fun paintErrorsAndWarnings(g: Graphics2D) {
@@ -457,27 +459,43 @@ class CodeMiniMapPanel(
         val errorsAndWarningsMap = hashMapOf<String, ErrorOrWarning>()
         for (rangeHighlighter in editor.filteredDocumentMarkupModel.allHighlighters) {
             if (rangeHighlighter.errorStripeTooltip != null) {
-//            println(est)
-                if (rangeHighlighter.errorStripeTooltip.printToString().indexOf("group=4") >= 0) { // error
-                    val start = editor.offsetToVisualPosition(rangeHighlighter.startOffset)
-                    val end = editor.offsetToVisualPosition(rangeHighlighter.endOffset)
-//                println("-error--> " + start.line + "," + end.line)
-                    val errorOrWarning = ErrorOrWarning(start.line, end.line, 1)
-                    errorsAndWarningsMap.put(("" + start.line + "," + end.line), errorOrWarning)
-//                paintErrorOrWarning(g, start.line, end.line, 1)
+                var est: String = ""
+                try {
+                    est = rangeHighlighter.errorStripeTooltip.printToString()
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-                if (rangeHighlighter.errorStripeTooltip.printToString().indexOf("group=5") >= 0) { // warning
-                    val start = editor.offsetToVisualPosition(rangeHighlighter.startOffset)
-                    val end = editor.offsetToVisualPosition(rangeHighlighter.endOffset)
-//                println("-warning--> " + start.line + "," + end.line)
-                    val errorOrWarning = ErrorOrWarning(start.line, end.line, 2)
-                    errorsAndWarningsMap.put(("" + start.line + "," + end.line), errorOrWarning)
-//                paintErrorOrWarning(g, start.line, end.line, 2)
+                if (est.length > 0) {
+                    if (est.indexOf("severity=ERROR") >= 0) { // error
+                        val start = editor.offsetToVisualPosition(rangeHighlighter.startOffset)
+                        val end = editor.offsetToVisualPosition(rangeHighlighter.endOffset)
+                        //                println("-error--> " + start.line + "," + end.line)
+                        val errorOrWarning = ErrorOrWarning(start.line, end.line, 1, rangeHighlighter.layer)
+                        val oldErrorOrWarning = errorsAndWarningsMap.get("" + start.line + "," + end.line)
+                        if (oldErrorOrWarning == null || (oldErrorOrWarning != null && oldErrorOrWarning.layer < rangeHighlighter.layer)) {
+                            errorsAndWarningsMap.put(("" + start.line + "," + end.line), errorOrWarning)
+                        }
+//                        errorsAndWarningsMap.put(("" + start.line + "," + end.line), errorOrWarning)
+                        //                paintErrorOrWarning(g, start.line, end.line, 1)
+                    }
+                    if (est.indexOf("severity=WARNING") >= 0) { // warning
+                        val start = editor.offsetToVisualPosition(rangeHighlighter.startOffset)
+                        val end = editor.offsetToVisualPosition(rangeHighlighter.endOffset)
+                        //                println("-warning--> " + start.line + "," + end.line)
+                        val errorOrWarning = ErrorOrWarning(start.line, end.line, 2, rangeHighlighter.layer)
+                        val oldErrorOrWarning = errorsAndWarningsMap.get("" + start.line + "," + end.line)
+                        if (oldErrorOrWarning == null || (oldErrorOrWarning != null && oldErrorOrWarning.layer < rangeHighlighter.layer)) {
+                            errorsAndWarningsMap.put(("" + start.line + "," + end.line), errorOrWarning)
+                        }
+                        //                paintErrorOrWarning(g, start.line, end.line, 2)
+                    }
                 }
+                //            println(est)
+
             }
         }
         for (errorOrWarning in errorsAndWarningsMap.values) {
-//            paintErrorOrWarning(g, errorOrWarning.startLine, errorOrWarning.endLine, errorOrWarning.type)
+            paintErrorOrWarning(g, errorOrWarning.startLine, errorOrWarning.endLine, errorOrWarning.type)
         }
     }
 
@@ -498,16 +516,16 @@ class CodeMiniMapPanel(
             if (type == 1) {
                 if (config.errorsColor != null && config.errorsColor.length == 6) {
                     c = Color.decode("#" + config.errorsColor)
-                    c = Color(c.red, c.green, c.blue, 96)
+                    c = Color(c.red, c.green, c.blue, 192)
                 } else {
-                    c = Color(255,0,0, 96)
+                    c = Color(255, 0, 0, 192)
                 }
             } else {
                 if (config.warningsColor != null && config.warningsColor.length == 6) {
-                    c = Color.decode("#" + config.changesAddColor)
-                    c = Color(c.red, c.green, c.blue, 96)
+                    c = Color.decode("#" + config.warningsColor)
+                    c = Color(c.red, c.green, c.blue, 192)
                 } else {
-                    c = Color(255,255,0, 96)
+                    c = Color(255, 215, 0, 192)
                 }
             }
 
@@ -516,7 +534,7 @@ class CodeMiniMapPanel(
             g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("ERRORSWARNINGS_BACKGROUND", c))
 
             // Draw the Rect
-            g.fillRect(config.width - eX - eX, sY, eX, eY - sY)
+            g.fillRect(config.width - eX - 3 * eX, sY, 3 * eX, eY - sY)
 
         } else {
             val offsetStart = editor.logicalPositionToOffset(LogicalPosition(startLine, 0))
@@ -532,23 +550,23 @@ class CodeMiniMapPanel(
             if (type == 1) {
                 if (config.errorsColor != null && config.errorsColor.length == 6) {
                     c = Color.decode("#" + config.errorsColor)
-                    c = Color(c.red, c.green, c.blue, 96)
+                    c = Color(c.red, c.green, c.blue, 192)
                 } else {
-                    c = Color(255,0,0, 96)
+                    c = Color(255, 0, 0, 192)
                 }
             } else {
                 if (config.warningsColor != null && config.warningsColor.length == 6) {
-                    c = Color.decode("#" + config.changesAddColor)
-                    c = Color(c.red, c.green, c.blue, 96)
+                    c = Color.decode("#" + config.warningsColor)
+                    c = Color(c.red, c.green, c.blue, 192)
                 } else {
-                    c = Color(255,255,0, 96)
+                    c = Color(255, 215, 0, 192)
                 }
             }
 
             g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("ERRORSWARNINGS_BACKGROUND", c))
 
             // Draw the Rect
-            g.fillRect(config.width - eX - eX, sY, eX, eY - sY)
+            g.fillRect(config.width - eX - 3 * eX, sY, 3 * eX, eY - sY)
 
         }
     }
@@ -572,14 +590,14 @@ class CodeMiniMapPanel(
                     c = Color.decode("#" + config.changesColor)
                     c = Color(c.red, c.green, c.blue, 96)
                 } else {
-                    c = Color(0,0,255, 96)
+                    c = Color(0, 0, 255, 96)
                 }
             } else {
                 if (config.changesAddColor != null && config.changesAddColor.length == 6) {
                     c = Color.decode("#" + config.changesAddColor)
                     c = Color(c.red, c.green, c.blue, 96)
                 } else {
-                    c = Color(0,255,0, 96)
+                    c = Color(0, 255, 0, 96)
                 }
             }
 
@@ -601,12 +619,12 @@ class CodeMiniMapPanel(
 
             var c: Color
 
-                if (config.changesDeleteColor != null && config.changesDeleteColor.length == 6) {
-                    c = Color.decode("#" + config.changesDeleteColor)
-                    c = Color(c.red, c.green, c.blue, 96)
-                } else {
-                    c = Color(128,128,128, 96)
-                }
+            if (config.changesDeleteColor != null && config.changesDeleteColor.length == 6) {
+                c = Color.decode("#" + config.changesDeleteColor)
+                c = Color(c.red, c.green, c.blue, 96)
+            } else {
+                c = Color(128, 128, 128, 96)
+            }
 
             g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", c))
 

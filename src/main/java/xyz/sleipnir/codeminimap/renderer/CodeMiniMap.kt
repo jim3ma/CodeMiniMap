@@ -34,7 +34,11 @@ class CodeMiniMap(
             // Create an image that is a bit bigger then the one we need so we don't need to re-create it again soon.
             // Documents can get big, so rather then relative sizes lets just add a fixed amount on.
             // TODO: Add handling for HiDPI scaling and switch back to UIUtil.createImage
-            img = BufferedImage(config.width, scrollstate.documentHeight + (100 * config.pixelsPerLine), BufferedImage.TYPE_4BYTE_ABGR)
+            img = BufferedImage(
+                config.width,
+                scrollstate.documentHeight + (100 * config.pixelsPerLine),
+                BufferedImage.TYPE_4BYTE_ABGR
+            )
 //            img = UIUtil.createImage(
 //                config.width,
 //                scrollstate.documentHeight + (100 * config.pixelsPerLine),
@@ -85,8 +89,10 @@ class CodeMiniMap(
                     val fold = editor.foldingModel.getCollapsedRegionAtOffset(i)!!
 //                    println(fold.endOffset)
 //                    println(fold.startOffset)
-                    if (fold.endOffset >=0 && fold.startOffset >=0) {
-                        foldedLines += editor.document.getLineNumber(fold.endOffset) - editor.document.getLineNumber(fold.startOffset)
+                    if (fold.endOffset >= 0 && fold.startOffset >= 0) {
+                        foldedLines += editor.document.getLineNumber(fold.endOffset) - editor.document.getLineNumber(
+                            fold.startOffset
+                        )
                         i = fold.endOffset
                     }
                 }
@@ -112,7 +118,7 @@ class CodeMiniMap(
                         if (softWrappings.size == 0 && x > config.width)
                             break
                     }
-                } catch (e : Exception) {
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }

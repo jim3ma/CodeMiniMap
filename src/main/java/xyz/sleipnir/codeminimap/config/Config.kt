@@ -23,5 +23,5 @@ class Config {
     var changesDeleteColor: String = "808080"
     var showErrorsAndWarnings = true
     var errorsColor: String = "FF0000"
-    var warningsColor: String = "FFFF00"
+    var warningsColor: String = "FFD700"
 }
