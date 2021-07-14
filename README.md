@@ -25,6 +25,8 @@ More Features
  ![FindSymbols](https://gitee.com/sleiphur/CodeMiniMap/raw/master/pub/FindSymbols.png)    
  - **Change lines.**  
  ![ChangeLines](https://gitee.com/sleiphur/CodeMiniMap/raw/master/pub/ChangeLines.png)    
+- **Errors and Warnings.**  
+  ![ChangeLines](https://gitee.com/sleiphur/CodeMiniMap/raw/master/pub/ErrorsAndWarnings.jpg)
 
 Show/Hide or Enable/Disable CodeMinimap
 ======
