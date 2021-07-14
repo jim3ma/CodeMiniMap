@@ -25,6 +25,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vcs.impl.LineStatusTrackerManager
 import com.intellij.openapi.vfs.PersistentFSConstants
+import com.jetbrains.rd.util.string.printToString
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 import xyz.sleipnir.codeminimap.concurrent.DirtyLock
@@ -445,27 +446,42 @@ class CodeMiniMapPanel(
         }
     }
 
+    private class ErrorOrWarning public constructor(
+        public val startLine: Int,
+        public val endLine: Int,
+        public val type: Int
+    )
+
     private fun paintErrorsAndWarnings(g: Graphics2D) {
-        println("-error/warning--------->" + editor.filteredDocumentMarkupModel.allHighlighters.size)
+//        println("-error/warning--------->" + editor.filteredDocumentMarkupModel.allHighlighters.size)
+        val errorsAndWarningsMap = hashMapOf<String, ErrorOrWarning>()
         for (rangeHighlighter in editor.filteredDocumentMarkupModel.allHighlighters) {
-            val est = rangeHighlighter.errorStripeTooltip.toString()
+            if (rangeHighlighter.errorStripeTooltip != null) {
 //            println(est)
-            if (est.indexOf("group=4") >= 0) { // error
-                val start = editor.offsetToVisualPosition(rangeHighlighter.startOffset)
-                val end = editor.offsetToVisualPosition(rangeHighlighter.endOffset)
+                if (rangeHighlighter.errorStripeTooltip.printToString().indexOf("group=4") >= 0) { // error
+                    val start = editor.offsetToVisualPosition(rangeHighlighter.startOffset)
+                    val end = editor.offsetToVisualPosition(rangeHighlighter.endOffset)
 //                println("-error--> " + start.line + "," + end.line)
-                paintErrorsAndWarning(g, start.line, end.line, 1)
-            }
-            if (est.indexOf("group=5") >= 0) { // warning
-                val start = editor.offsetToVisualPosition(rangeHighlighter.startOffset)
-                val end = editor.offsetToVisualPosition(rangeHighlighter.endOffset)
+                    val errorOrWarning = ErrorOrWarning(start.line, end.line, 1)
+                    errorsAndWarningsMap.put(("" + start.line + "," + end.line), errorOrWarning)
+//                paintErrorOrWarning(g, start.line, end.line, 1)
+                }
+                if (rangeHighlighter.errorStripeTooltip.printToString().indexOf("group=5") >= 0) { // warning
+                    val start = editor.offsetToVisualPosition(rangeHighlighter.startOffset)
+                    val end = editor.offsetToVisualPosition(rangeHighlighter.endOffset)
 //                println("-warning--> " + start.line + "," + end.line)
-                paintErrorsAndWarning(g, start.line, end.line, 2)
+                    val errorOrWarning = ErrorOrWarning(start.line, end.line, 2)
+                    errorsAndWarningsMap.put(("" + start.line + "," + end.line), errorOrWarning)
+//                paintErrorOrWarning(g, start.line, end.line, 2)
+                }
             }
+        }
+        for (errorOrWarning in errorsAndWarningsMap.values) {
+//            paintErrorOrWarning(g, errorOrWarning.startLine, errorOrWarning.endLine, errorOrWarning.type)
         }
     }
 
-    private fun paintErrorsAndWarning(g: Graphics2D, startLine: Int, endLine: Int, type: Int) {
+    private fun paintErrorOrWarning(g: Graphics2D, startLine: Int, endLine: Int, type: Int) {
         if (startLine != endLine) {
             val offsetStart = editor.logicalPositionToOffset(LogicalPosition(startLine, 0))
             val offsetEnd = editor.logicalPositionToOffset(LogicalPosition(endLine, 0))
