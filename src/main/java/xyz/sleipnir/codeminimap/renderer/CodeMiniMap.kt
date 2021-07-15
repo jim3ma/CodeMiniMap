@@ -3,7 +3,6 @@ package xyz.sleipnir.codeminimap.renderer
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.editor.ex.EditorEx
 import com.intellij.openapi.progress.ProgressIndicator
-import com.intellij.util.ui.UIUtil
 import xyz.sleipnir.codeminimap.config.Config
 import java.awt.AlphaComposite
 import java.awt.image.BufferedImage

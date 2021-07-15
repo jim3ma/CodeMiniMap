@@ -9,11 +9,18 @@
             <p>
                 Embeds a code minimap similar to the one found in Sublime/Atom into the editor pane. Works with both light and dark
                 themes using your customized colors for syntax highlighting.
+                * This plugin is a separated update of the original project CodeGlance that seemingly no longer updated.
+                * Please mind that this plugin can be removed from the marketplace any time by the original author's request.
+                * Original CodeGlance author: 'Vektah(adam@vektah.net)', 'https://github.com/vektah/CodeGlance'
             </p>
         </p>
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>1.6.8: features modified:</h3>
+        <ul>
+            <li>[FEATURE]Modify change lines color width.</li>
+        </ul>
         <h3>1.6.7: features added:</h3>
         <ul>
             <li>[FEATURE]Highlighting for syntax errors/warnings.</li>

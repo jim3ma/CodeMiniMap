@@ -1,6 +1,5 @@
 package xyz.sleipnir.codeminimap.comps
 
-import com.intellij.codeInsight.daemon.impl.SeverityUtil
 import com.intellij.find.EditorSearchSession
 import com.intellij.find.FindManager
 import com.intellij.find.FindResult
@@ -455,7 +454,6 @@ class CodeMiniMapPanel(
     )
 
     private fun paintErrorsAndWarnings(g: Graphics2D) {
-//        println("-error/warning--------->" + editor.filteredDocumentMarkupModel.allHighlighters.size)
         val errorsAndWarningsMap = hashMapOf<String, ErrorOrWarning>()
         for (rangeHighlighter in editor.filteredDocumentMarkupModel.allHighlighters) {
             if (rangeHighlighter.errorStripeTooltip != null) {
@@ -469,29 +467,22 @@ class CodeMiniMapPanel(
                     if (est.indexOf("severity=ERROR") >= 0) { // error
                         val start = editor.offsetToVisualPosition(rangeHighlighter.startOffset)
                         val end = editor.offsetToVisualPosition(rangeHighlighter.endOffset)
-                        //                println("-error--> " + start.line + "," + end.line)
                         val errorOrWarning = ErrorOrWarning(start.line, end.line, 1, rangeHighlighter.layer)
                         val oldErrorOrWarning = errorsAndWarningsMap.get("" + start.line + "," + end.line)
                         if (oldErrorOrWarning == null || (oldErrorOrWarning != null && oldErrorOrWarning.layer < rangeHighlighter.layer)) {
                             errorsAndWarningsMap.put(("" + start.line + "," + end.line), errorOrWarning)
                         }
-//                        errorsAndWarningsMap.put(("" + start.line + "," + end.line), errorOrWarning)
-                        //                paintErrorOrWarning(g, start.line, end.line, 1)
                     }
                     if (est.indexOf("severity=WARNING") >= 0) { // warning
                         val start = editor.offsetToVisualPosition(rangeHighlighter.startOffset)
                         val end = editor.offsetToVisualPosition(rangeHighlighter.endOffset)
-                        //                println("-warning--> " + start.line + "," + end.line)
                         val errorOrWarning = ErrorOrWarning(start.line, end.line, 2, rangeHighlighter.layer)
                         val oldErrorOrWarning = errorsAndWarningsMap.get("" + start.line + "," + end.line)
                         if (oldErrorOrWarning == null || (oldErrorOrWarning != null && oldErrorOrWarning.layer < rangeHighlighter.layer)) {
                             errorsAndWarningsMap.put(("" + start.line + "," + end.line), errorOrWarning)
                         }
-                        //                paintErrorOrWarning(g, start.line, end.line, 2)
                     }
                 }
-                //            println(est)
-
             }
         }
         for (errorOrWarning in errorsAndWarningsMap.values) {
@@ -534,7 +525,7 @@ class CodeMiniMapPanel(
             g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("ERRORSWARNINGS_BACKGROUND", c))
 
             // Draw the Rect
-            g.fillRect(config.width - eX - 3 * eX, sY, 3 * eX, eY - sY)
+            g.fillRect(config.width - 3 * eX - 3 * eX, sY, 3 * eX, eY - sY)
 
         } else {
             val offsetStart = editor.logicalPositionToOffset(LogicalPosition(startLine, 0))
@@ -566,7 +557,7 @@ class CodeMiniMapPanel(
             g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("ERRORSWARNINGS_BACKGROUND", c))
 
             // Draw the Rect
-            g.fillRect(config.width - eX - 3 * eX, sY, 3 * eX, eY - sY)
+            g.fillRect(config.width - 3 * eX - 3 * eX, sY, 3 * eX, eY - sY)
 
         }
     }
@@ -606,7 +597,7 @@ class CodeMiniMapPanel(
             g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", c))
 
             // Draw the Rect
-            g.fillRect(config.width - eX, sY, eX, eY - sY)
+            g.fillRect(config.width - 3 * eX, sY, 3 * eX, eY - sY)
 
         } else {
             val offsetStart = editor.logicalPositionToOffset(LogicalPosition(startLine, 0))
@@ -629,16 +620,7 @@ class CodeMiniMapPanel(
             g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", c))
 
             // Draw the Rect
-            g.fillRect(config.width - eX, sY, eX, eY - sY)
-
-//            val xPoints = intArrayOf(config.width - eX - (eX - sX) - 2, config.width - eX - (eX - sX) - 2, config.width - eX - 1)
-//            val yPoints = intArrayOf(sY - 2, sY + 2, sY)
-//
-//            val oldStroke = g.stroke
-//            g.stroke = BasicStroke(JBUIScale.scale(1).toFloat())
-//            g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("CHANGES_BACKGROUND", JBColor.BLUE))
-//            g.drawPolygon(xPoints, yPoints, xPoints.size)
-//            g.stroke = oldStroke
+            g.fillRect(config.width - 3 * eX, sY, 3 * eX, eY - sY)
 
         }
 

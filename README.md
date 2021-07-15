@@ -1,5 +1,19 @@
 CodeMiniMap
 ======
+
+Originally, code from vektah's [CodeGlance](https://github.com/vektah/CodeGlance) or 
+Michael Ziminsky (Z)'s [Minimap-for-Jetbrains](https://github.com/mgziminsky/Minimap-for-Jetbrains), Sorry for I could not remember. 
+after long time waiting for author's updates and no recently result, I decide to add some functions to CodeGlance by myself.
+
+From first of start, I simply cloned a copy from author's code, and start to dev. So, that is the reason of lacks 
+fork info form vektah's [CodeGlance](https://github.com/vektah/CodeGlance) or
+Michael Ziminsky (Z)'s [Minimap-for-Jetbrains](https://github.com/mgziminsky/Minimap-for-Jetbrains).
+
+Here, all codes are still open source by BSD license. 
+
+Thanks a lot to vektah's [CodeGlance](https://github.com/vektah/CodeGlance) and 
+Michael Ziminsky (Z)'s [Minimap-for-Jetbrains](https://github.com/mgziminsky/Minimap-for-Jetbrains), which are definitely awesome plugins.
+
 Intellij plugin that embeds a code minimap similar to the one found in Sublime/Atom into the editor pane. 
 Works with both light and dark themes using your customized colors for syntax highlighting.
 
@@ -32,3 +46,8 @@ Show/Hide or Enable/Disable CodeMinimap
 ======
  * **Ctrl-Shift-G** to toggle minimap  
  * Settings > Code MiniMap
+
+References
+======
+ * vektah's [CodeGlance](https://github.com/vektah/CodeGlance)
+ * Michael Ziminsky (Z)'s [Minimap-for-Jetbrains](https://github.com/mgziminsky/Minimap-for-Jetbrains)
