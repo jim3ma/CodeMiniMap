@@ -123,7 +123,12 @@ class CodeMiniMap(
             }
 
             // Render whole token, make sure multi lines are handled gracefully.
-            (hlIter.textAttributes.foregroundColor ?: defaultForeground).getRGBComponents(colorBuffer)
+            try {
+                (hlIter.textAttributes.foregroundColor ?: defaultForeground).getRGBComponents(colorBuffer)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
             while (i < hlIter.end) {
                 if (checkFold())
                     continue
