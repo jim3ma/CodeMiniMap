@@ -525,7 +525,7 @@ class CodeMiniMapPanel(
             g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("ERRORSWARNINGS_BACKGROUND", c))
 
             // Draw the Rect
-            g.fillRect(config.width - 3 * eX - 3 * eX, sY, 3 * eX, eY - sY)
+            g.fillRect(config.width - 3 * eX - 3 * eX, sY, 3 * eX, (eY - sY) / 2)
 
         } else {
             val offsetStart = editor.logicalPositionToOffset(LogicalPosition(startLine, 0))
@@ -557,7 +557,7 @@ class CodeMiniMapPanel(
             g.color = editor.colorsScheme.getColor(ColorKey.createColorKey("ERRORSWARNINGS_BACKGROUND", c))
 
             // Draw the Rect
-            g.fillRect(config.width - 3 * eX - 3 * eX, sY, 3 * eX, eY - sY)
+            g.fillRect(config.width - 3 * eX - 3 * eX, sY, 3 * eX, (eY - sY) / 2)
 
         }
     }

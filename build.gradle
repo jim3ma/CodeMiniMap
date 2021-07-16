@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'xyz.sleipnir'
-version '1.6.8'
+version '1.6.9'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -39,6 +39,14 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
+        <h3>1.6.9: features modified:</h3>
+        <ul>
+            <li>[FEATURE]Modify change lines color height.</li>
+        </ul>
+        <h3>1.6.8: features modified:</h3>
+        <ul>
+            <li>[FEATURE]Modify change lines color width.</li>
+        </ul>
         <h3>1.6.7: features added:</h3>
         <ul>
             <li>[FEATURE]Highlighting for syntax errors/warnings.</li>
