@@ -17,6 +17,10 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <h3>2.0.1: version number update:</h3>
+        <ul>
+            <li>Only update version number.</li>
+        </ul>
         <h3>1.6.9: features modified:</h3>
         <ul>
             <li>[FEATURE]Modify change lines color height.</li>
