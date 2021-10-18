@@ -40,6 +40,8 @@ public class ConfigForm {
     private JCheckBox showErrorsAndWarnings;
     private JTextField txtErrorsColor;
     private JTextField txtWarningsColor;
+    private JLabel lblShow;
+    private JTextField txtMaxLines;
 
     public ConfigForm() {
         cmbPixelsPerLine.setModel(new DefaultComboBoxModel(new Integer[]{1, 2, 3, 4}));
@@ -166,6 +168,28 @@ public class ConfigForm {
                     txtFindSymbolsColor.setBorder(invalidBorder);
                 else
                     txtFindSymbolsColor.setBorder(defaultBorder);
+                return valid;
+            }
+
+            @Override
+            public boolean shouldYieldFocus(JComponent input) {
+                verify(input);
+                return true;
+            }
+        });
+
+        txtMaxLines.setInputVerifier(new InputVerifier() {
+            private final Pattern pattern = Pattern.compile("[0-9]{1,4}");
+            private final Border defaultBorder = txtMaxLines.getBorder();
+            private final Border invalidBorder = BorderFactory.createLineBorder(JBColor.RED);
+
+            @Override
+            public boolean verify(JComponent input) {
+                boolean valid = pattern.matcher(txtMaxLines.getText()).matches();
+                if (!valid)
+                    txtMaxLines.setBorder(invalidBorder);
+                else
+                    txtMaxLines.setBorder(defaultBorder);
                 return valid;
             }
 
@@ -364,5 +388,13 @@ public class ConfigForm {
 
     public void setWarningsColor(String warningsColor) {
         txtWarningsColor.setText(warningsColor);
+    }
+
+    public int getMaxLines() {
+        return Integer.valueOf(txtMaxLines.getText());
+    }
+
+    public void setMaxLines(int maxLines) {
+        txtMaxLines.setText(String.valueOf(maxLines));
     }
 }

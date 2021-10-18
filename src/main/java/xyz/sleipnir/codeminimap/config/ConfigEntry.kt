@@ -35,6 +35,7 @@ class ConfigEntry : Configurable {
                         || config.showErrorsAndWarnings != form!!.isShowErrorsAndWarnings
                         || config.errorsColor != form!!.errorsColor
                         || config.warningsColor != form!!.warningsColor
+                        || config.maxLines != form!!.maxLines
                 )
     }
 
@@ -73,6 +74,7 @@ class ConfigEntry : Configurable {
         config.showErrorsAndWarnings = form!!.isShowErrorsAndWarnings
         config.errorsColor = form!!.errorsColor
         config.warningsColor = form!!.warningsColor
+        config.maxLines = form!!.maxLines
 
         configService.notifyChange()
     }
@@ -109,6 +111,7 @@ class ConfigEntry : Configurable {
         form!!.isShowErrorsAndWarnings = config.showErrorsAndWarnings
         form!!.errorsColor = config.errorsColor
         form!!.warningsColor = config.warningsColor
+        form!!.maxLines = config.maxLines
     }
 
     override fun disposeUIResources() {

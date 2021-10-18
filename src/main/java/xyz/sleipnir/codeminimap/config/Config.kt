@@ -24,4 +24,5 @@ class Config {
     var showErrorsAndWarnings = true
     var errorsColor: String = "FF0000"
     var warningsColor: String = "FFD700"
+    var maxLines: Int = 2000
 }

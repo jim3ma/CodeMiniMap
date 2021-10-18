@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'xyz.sleipnir'
-version '2.0.1'
+version '2.0.2'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -39,6 +39,10 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
+        <h3>2.0.2: Hide mini map when large file:</h3>
+        <ul>
+            <li>[FEATURE]Auto hide mini map at large file lines with config.</li>
+        </ul>
         <h3>2.0.1: version number update:</h3>
         <ul>
             <li>Only update version number.</li>

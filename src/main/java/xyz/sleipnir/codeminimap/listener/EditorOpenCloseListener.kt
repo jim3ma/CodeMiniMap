@@ -25,7 +25,10 @@ class EditorOpenCloseListener : FileEditorManagerListener {
     override fun fileOpened(source: FileEditorManager, file: VirtualFile) {
         val editors = source.allEditors
         for (editor in editors.filter { it is TextEditor }) {
-            injectCodeMiniMap(editor as TextEditor, source.project)
+            val lines = (editor as TextEditor).editor.document.lineCount
+            if (lines <= config.maxLines) {
+                injectCodeMiniMap(editor as TextEditor, source.project)
+            }
         }
         super.fileOpened(source, file)
     }
